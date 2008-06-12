@@ -39,6 +39,8 @@ my %transliterated_of = (
 	'kU'	=> '&#2325;&#2370; ',
 	'kuu'	=> '&#2325;&#2370; ',
 	'klR'	=> '&#2325;&#2402; ',
+	'CBa'	=> '&#2305; ',
+	'L'		=> '&#2355;&#2381; ',
 	);
 
 for my $word (keys  %transliterated_of){

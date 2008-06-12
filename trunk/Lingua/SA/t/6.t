@@ -59,13 +59,46 @@ for my $word (keys %ShaShThI_ekavachana_strI_vibhakti_of){
 
     is( $computed, $expected, $expected );
 	}
+
+for my $word (keys %ShaShThI_ekavachana_strI_vibhakti_of){
+    my $expected = sandhi($ShaShThI_ekavachana_strI_vibhakti_of{$word});
+    my $computed = sandhi(vibhakti({ naam=>$word, vibhakti=>'ShaShThI',
+		linga=>'strii', vachana=>'ekavachana'}));
+
+    is( $computed, $expected, $expected );
+	}
+
+for my $word (keys %ShaShThI_ekavachana_strI_vibhakti_of){
+    my $expected = sandhi($ShaShThI_ekavachana_strI_vibhakti_of{$word});
+    my $computed = sandhi(vibhakti({ naam=>$word, vibhakti=>6,
+		linga=>'strii', vachana=>'ekavachana'}));
+
+    is( $computed, $expected, $expected );
+	}
+
+for my $word (keys %ShaShThI_ekavachana_strI_vibhakti_of){
+    my $expected = sandhi($ShaShThI_ekavachana_strI_vibhakti_of{$word});
+    my $computed = sandhi(vibhakti({ naam=>$word, vibhakti=>6,
+		linga=>2, vachana=>'ekavachana'}));
+
+    is( $computed, $expected, $expected );
+	}
+
+for my $word (keys %ShaShThI_ekavachana_strI_vibhakti_of){
+    my $expected = sandhi($ShaShThI_ekavachana_strI_vibhakti_of{$word});
+    my $computed = sandhi(vibhakti({ naam=>$word, vibhakti=>6,
+		linga=>2, vachana=>1}));
+
+    is( $computed, $expected, $expected );
+	}
 }
 #########################
 sub test_ShaShThI_ekavachana_napuMsaka_vibhakti{
 # ekavachana, napuMsakalinga
 my %ShaShThI_ekavachana_napuMsaka_vibhakti_of = (
 	'vana'		=>	'vanasya',
-	'vAri'		=>	'vAriNaaH',
+    'vAri'      =>  'vAriNaH',
+    'shuci'     =>  'shucinaH',
 	'madhu'	=>	'madhunaH',
 	'kartR'		=>	'kartuH | kartRNaH',
 	'Chatra'		=>	'Chatrasya',

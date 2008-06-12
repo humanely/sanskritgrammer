@@ -40,12 +40,21 @@ sandhi(vibhakti({ naam=>$word, vibhakti=>'prathamaa', linga=>'puM', vachana=>'ek
 
     is( $computed, $expected, $expected );
 	}
+
+for my $word (keys %prathama_ekavachana_puM_vibhakti_of){
+    my $expected = sandhi($prathama_ekavachana_puM_vibhakti_of{$word});
+    my $computed =
+sandhi(vibhakti({ naam=>$word, vibhakti=>'prathamA', linga=>'puM', vachana=>'ekavachana'}));
+
+    is( $computed, $expected, $expected );
+	}
 }
 #########################
 sub test_prathama_ekavachana_strI_vibhakti{
 # ekavachana, strIlinga
 my %prathama_ekavachana_strI_vibhakti_of = (
 	'bAlA'		=>	'bAlaa',
+	'bAlaa'		=>	'bAlaa',
 	'mati'		=>	'matiH',
 	'nadI'	=>	'nadI',
 	'dhenu'		=>	'dhenuH',
