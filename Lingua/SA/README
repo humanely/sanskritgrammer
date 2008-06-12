@@ -1,16 +1,12 @@
-Lingua/SA version 0.01
+Lingua/SA version 0.08
 ======================
 
-The README is used to introduce the module and provide instructions on
-how to install the module, any machine dependencies it may have (for
-example C compilers and installed libraries) and any other information
-that should be provided before the module is installed.
+Lingua::SA - Perl extension for the language Sanskrit
+use Lingua::SA qw(transliterate vibhakti sandhi);
 
-A README file is required for CPAN modules since CPAN extracts the
-README file from a module distribution so that people browsing the
-archive can use it get an idea of the modules uses. It is usually a
-good idea to provide version information here so that people can
-decide whether fixes for the module are worth downloading.
+The module exports functions to 
+       (1) Obtain declinations of Sanskrit nouns
+       (2) Convert Roman into Unicode Sanskrit
 
 INSTALLATION
 
@@ -23,13 +19,9 @@ To install this module type the following:
 
 DEPENDENCIES
 
-This module requires these other modules and libraries:
-
-  blah blah blah
+None
 
 COPYRIGHT AND LICENCE
-
-Put the correct copyright and licence information here.
 
 Copyright (C) 2008 Ashish Mahabal
 

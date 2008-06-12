@@ -3,6 +3,8 @@ package Lingua::SA;
 use 5.008;
 use strict;
 use warnings;
+use English qw{-no_match_vars};
+use Carp;
 
 require Exporter;
 
@@ -26,8 +28,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT = qw(
 );
 
-our $VERSION = '0.02';
-
+our $VERSION = '0.08';
 
 # Preloaded methods go here.
 ###########################################################
@@ -46,20 +47,42 @@ sub vibhakti {
 # USAGE: my $response=vibhakti({naam=>$noun, vibhakti=>$vibhakti,
 # 						linga=>$linga, vachana=>$vachana});
 
+# 2008-06-05 Fixed 3351 and 3361 from inaaH to inaH (v 0.06)
+
 my ($arg_ref) = @_;
+
+confess "Argument naam not passed to vibhakti()" if !defined $arg_ref->{naam};
+confess "Argument linga not passed to vibhakti()" if !defined $arg_ref->{linga};
+confess "Argument vibhakti not passed to vibhakti()" if !defined $arg_ref->{vibhakti};
+confess "Argument vachana not passed to vibhakti()" if !defined $arg_ref->{vachana};
+
 my ( $noun, $vibhakti, $linga, $vachana ) =
 		( $arg_ref -> {naam}, $arg_ref -> {vibhakti}, $arg_ref -> {linga},
 		$arg_ref -> {vachana});
 
 # The last character of noun is chopped to be aakaar
 # (what happens when halant nouns are included?)
+$noun = sandhi($noun);
 my $aakaar = chop($noun);
 
+$vibhakti = sandhi($vibhakti);
+$linga = sandhi($linga);
+
 my %aakaar   = qw(0 0 a 1 A 2 i 3 I 4 u 5 U 6 R 7);
-my %linga    = qw(puM 1 strI 2 napuMsaka 3);
-my %vachana  = qw(ekavachana 1 dvivachana 2 bahuvachana 3);
-my %vibhakti = qw#prathamaa 1 dvitIyA 2 tRutIyA 3 chaturthI 4 paJchamI 5
-			      ShaShThI 6 saptamI 7 sambodhana 8#;
+my %linga    = qw(puM 1 strI 2 napuMsaka 3 1 1 2 2 3 3);
+my %vachana  = qw(ekavachana 1 dvivachana 2 bahuvachana 3 1 1 2 2 3 3);
+my %vibhakti = qw#prathamA 1 dvitIyA 2 tRtIyA 3 chaturthI 4 paJchamI 5
+			     	ShaShThI 6 saptamI 7 sambodhana 8
+					1 1 2 2 3 3 4 4 5 5 6 6 7 7 8 8#;
+
+confess "Unsupported noun supplied to vibhakti(): $noun$aakaar ending in $aakaar"
+	if !defined $aakaar{$aakaar};
+confess "Invalid linga $linga supplied to vibhakti()"
+	if !defined $linga{$linga};
+confess "Invalid vibhakti $vibhakti supplied to vibhakti()"
+	if !defined $vibhakti{$vibhakti};
+confess "Invalid vachana $vachana supplied to vibhakti()"
+	if !defined $vachana{$vachana};
 
 # coef for swarAnt nouns range from 1111 to 7373
 # with 7 sets of 72 coefs posible (not all taken)
@@ -171,7 +194,7 @@ my %ending = qw(
       6241 vai                  6242 Ubhyaam              6243 UbhyaH
       6251 vaaH                 6252 Ubhyaam              6253 UbhyaH
       6261 vaaH                 6262 voH                  6263 Unaam
-      6271 vaam                 6272 voH                  6273 uSu
+      6271 vaam                 6272 voH                  6273 USu
       6281 u                    6282 vau                  6283 vaH
 
       7211 A                    7212 arau                 7213 araH
@@ -196,8 +219,8 @@ my %ending = qw(
       3321 i                    3322 inI                  3323 Ini
       3331 inaa                 3332 ibhyaam              3333 ibhiH
       3341 ine                  3342 ibhyaam              3343 ibhyaH
-      3351 inaaH                3352 ibhyaam              3353 ibhyaH
-      3361 inaaH                3362 inoH                 3363 Inaam
+      3351 inaH                3352 ibhyaam              3353 ibhyaH
+      3361 inaH                3362 inoH                 3363 Inaam
       3371 ini                  3372 inoH                 3373 iSu
       3381 i|e                  3382 inI                  3383 Ini
 
@@ -222,10 +245,23 @@ my %ending = qw(
 
 # Is 3263 above dirgha as stated?	## Yes, it is
 
+confess "$linga nouns ending in $aakaar not supported"
+	if !defined $ending{$coef};
+
+###	This part can cater to irregular nouns
+
+# ambA, akkA, allA have a-kaaraant sambodhana
+if($noun eq "amb" or $noun eq "akk" or $noun eq "all"){
+	$ending{2281} = 'a';
+	}
+
+my $endcoef = $ending{$coef};
+
 # Natva results in converting n to N when an r, R, RR, or S are encountered in
 # the noun, and the only letters between there and end are what are in Natva
 # here (h y v k kh g gh ~N p ph b bh m and a pratyay (aa~N - not implemented)
-# Additinally, n can not be halant
+# Additionally, n can not be halant
+
 my $Natva = "h|y|v|k(h)?|g(h)?|G|p(h)?|b(h)?|m";
 
 #	vowel is as defined in split_word
@@ -233,8 +269,8 @@ my $vowel = "(A|H|I|M|R(R|u)?|U|a(a|i|u)?|i(i)?|e|lR|o(M)?|u(u)?|\\:|\\|(\\|)?)"
 
 my $inflected;
 
-###	This part can be expanded to include options
-my $endcoef = $ending{$coef};
+###	This part can be expanded to include exceptions/options
+
 if ($noun =~ m/[rRS][$Natva|$vowel]*$/ ) {
         $endcoef =~ s/n([a-zA-Z])/N$1/;	
         }
@@ -300,6 +336,7 @@ sub match_code {
         "n",   "&#2344;", "p",   "&#2346;", "ph",  "&#2347;",
         "b",   "&#2348;", "bh",  "&#2349;", "m",   "&#2350;",
         "y",   "&#2351;", "r",   "&#2352;", "l",   "&#2354;",
+        "L",   "&#2355;",
         "v",   "&#2357;", "z",   "&#2358;", "sh",  "&#2358;",
         "S",   "&#2359;", "Sh",  "&#2359;", "s",   "&#2360;",
         "h",   "&#2361;", "H",   "&#2307;", ":",   "&#2307;",
@@ -308,7 +345,7 @@ sub match_code {
         "~M",  "&#2306;", "~|",  "&#2404;", "~||", "&#2405;",
         "\$",  "&#2365;", "^",  "&#2385;", "_", "&#2386;",
         "`",  "&#2387;", "'",  "&#2388;",  "\@",  "&#2416;", 
-        "~oM", "&#2384;", "*",   "&#2381;"
+        "~oM", "&#2384;", "*",   "&#2381;", "CB", "&#2305;",
     );
 # RR 2400 lRR 2401 _lR 2402 _lRR 2403 chandra-bindu 2305
     if ( defined $letter_codes{$syllable_mcc} ) {
@@ -324,7 +361,7 @@ sub split_word {
 	# vowels is copied as is in vibhakti
     my $vowels = "(A|H|I|M|R(R|u)?|U|a(a|i|u)?|i(i)?|e|lR|o(M)?|u(u)?|\\:|\\|(\\|)?)";
     my $consonants =
-"(C(h)?|D(h)?|G|J|N|S(h)?|T(h)?|b(h)?|c(h)?|d(h)?|g(h)?|h|j(h)?|k(h)?|l|m|n|p(h)?|r|s(h)?|t(h)?|v|y|z)";
+"(C(h|B)?|D(h)?|G|J|N|S(h)?|T(h)?|b(h)?|c(h)?|d(h)?|g(h)?|h|j(h)?|k(h)?|l|m|n|p(h)?|r|s(h)?|t(h)?|v|y|z|L)";
     my @syllables;
     my $vowel_start_p = 1;
     my $matched;
@@ -371,7 +408,7 @@ sub split_word {
 ###########################
 1;
 __END__
-# Below is stub documentation for your module. You'd better edit it!
+# Below is stub documentation for Lingua::SA
 
 =head1 NAME
 
@@ -381,43 +418,81 @@ Lingua::SA - Perl extension for the language Sanskrit
 
 use Lingua::SA qw(transliterate vibhakti sandhi);
 
-print vibhakti({naam=>"raama", vibhakti=>"prathamaa",
-                       linga=>"puM", vachana=>"ekavachana"}),"\n";
-
-# outputs: raam + aH
-
-print sandhi(vibhakti({naam=>"raama", vibhakti=>"prathamaa",
-                       linga=>"puM", vachana=>"ekavachana"})),"\n";
-
-# outputs: rAmaH
-
-print transliterate(sandhi(vibhakti({naam=>"raama", vibhakti=>"prathamaa",
-                       linga=>"puM", vachana=>"ekavachana"}))),"\n";
+print transliterate("raamaH");
 
 # outputs: &#2352;&#2366;&#2350;&#2307;
 
 =head1 DESCRIPTION
 
 The module exports functions to 
-       (1) Obtain declenations of nouns
+       (1) Obtain declinations of Sanskrit nouns
        (2) Convert Roman into Unicode Sanskrit
+
+print vibhakti({naam=>"raama", vibhakti=>"prathamA",
+	linga=>"puM", vachana=>"ekavachana"}),"\n";
+
+# outputs: rAm + aH
+
+print sandhi(vibhakti({naam=>"raama", vibhakti=>"prathamA",
+    linga=>"puM", vachana=>"ekavachana"})),"\n";
+
+# outputs: rAmaH
+
+print transliterate(sandhi(vibhakti({naam=>"raama",
+	vibhakti=>"prathamA", linga=>"puM",
+	vachana=>"ekavachana"}))),"\n";
+
+or,
+
+print transliterate(sandhi(vibhakti({naam=>"raama",
+	vibhakti=>1, linga=>1, vachana=>1}))),"\n";
+
+# outputs: &#2352;&#2366;&#2350;&#2307;
 
 =head2 EXPORT
 
 None by default.
 
+The module optionally exports three functions:
+
+(1) transliterate: This takes roman text as input and depicts it in UNICODE
+devanAgarI. The character set used is that of Sanskrit. Ideal for use in cgi
+scripts.
+
+(2) vibhakti: This returns the declinations of nouns. Takes as input a noun
+(naam), a case (vibhakti), a gender (linga) and number/plurality (vachana) and
+returns the corresponding declination if the inputs are valid.
+
+The vibhakti has to be one of:
+prathamA dvitIyA tRutIyA chaturthI paJchamI ShaShThI saptamI sambodhana 
+Alternately, the numbers 1 through 8 are also allowed.
+
+The vachana has to be one of: ekavachana dvivachana bahuvachana or 1 2 3
+
+The linga has to be one of: puM strI napuMsaka  or 1 2 3
+
+The naam has to end in one of: a A i I u U R (aa, ii, uu are internally
+converted to A, I, U respectively). Other endings not supported yet.
+
+(3) sandhi: Merely "straightens" the output by doing a few minor operations to
+make it look more like a proper "word". In particular, it removes ' + ' from
+the "word + inflection" combinations. It also replaces aa with A, ii with I and
+uu with U.
+
 =head1 SEE ALSO
 
-If you have a mailing list set up for your module, mention it here.
+Currently write-only mailing list for feedback:
+http://groups.google.com/group/sanskrit-module-feedback
 
-You can see the module in operation through various links at:
+You can see the module in operation through various cgi-bin links at:
 http://www.astro.caltech.edu/~aam/sanskrit
 You will also find there links to other Sanskrit resources including some from
-which I have borrowed.
+which I have borrowed. You will also find there the transliteration mapping
+used.
 
 =head1 AUTHOR
 
-Ashish Mahabal, E<lt>aam@astro.caltech.eduE<gt>
+Ashish Mahabal, E<lt>mahabal.ashish@gmail.comE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 

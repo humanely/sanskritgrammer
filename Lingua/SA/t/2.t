@@ -36,6 +36,30 @@ my %dvitIyA_ekavachana_puM_vibhakti_of = (
 for my $word (keys %dvitIyA_ekavachana_puM_vibhakti_of){
     my $expected = sandhi($dvitIyA_ekavachana_puM_vibhakti_of{$word});
     my $computed =
+sandhi(vibhakti({ naam=>$word, vibhakti=>'dvitIyaa', linga=>'puM', vachana=>'ekavachana'}));
+
+    is( $computed, $expected, $expected );
+	}
+
+for my $word (keys %dvitIyA_ekavachana_puM_vibhakti_of){
+    my $expected = sandhi($dvitIyA_ekavachana_puM_vibhakti_of{$word});
+    my $computed =
+sandhi(vibhakti({ naam=>$word, vibhakti=>'dvitiiyA', linga=>'puM', vachana=>'ekavachana'}));
+
+    is( $computed, $expected, $expected );
+	}
+
+for my $word (keys %dvitIyA_ekavachana_puM_vibhakti_of){
+    my $expected = sandhi($dvitIyA_ekavachana_puM_vibhakti_of{$word});
+    my $computed =
+sandhi(vibhakti({ naam=>$word, vibhakti=>'dvitiiyaa', linga=>'puM', vachana=>'ekavachana'}));
+
+    is( $computed, $expected, $expected );
+	}
+
+for my $word (keys %dvitIyA_ekavachana_puM_vibhakti_of){
+    my $expected = sandhi($dvitIyA_ekavachana_puM_vibhakti_of{$word});
+    my $computed =
 sandhi(vibhakti({ naam=>$word, vibhakti=>'dvitIyA', linga=>'puM', vachana=>'ekavachana'}));
 
     is( $computed, $expected, $expected );

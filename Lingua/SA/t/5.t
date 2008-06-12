@@ -70,7 +70,8 @@ sub test_paJchamI_ekavachana_napuMsaka_vibhakti{
 # ekavachana, napuMsakalinga
 my %paJchamI_ekavachana_napuMsaka_vibhakti_of = (
 	'vana'		=>	'vanaat',
-	'vAri'		=>	'vAriNaaH',
+	'vAri'		=>	'vAriNaH',
+	'shuci'		=>	'shucinaH',
 	'madhu'	=>	'madhunaH',
 	'kartR'		=>	'kartuH | kartRNaH',
 	'Chatra'		=>	'Chatraat',
