@@ -28,7 +28,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT = qw(
 );
 
-our $VERSION = '0.08';
+our $VERSION = '0.09';
 
 # Preloaded methods go here.
 ###########################################################
@@ -51,10 +51,10 @@ sub vibhakti {
 
 my ($arg_ref) = @_;
 
-confess "Argument naam not passed to vibhakti()" if !defined $arg_ref->{naam};
-confess "Argument linga not passed to vibhakti()" if !defined $arg_ref->{linga};
-confess "Argument vibhakti not passed to vibhakti()" if !defined $arg_ref->{vibhakti};
-confess "Argument vachana not passed to vibhakti()" if !defined $arg_ref->{vachana};
+confess "Argument 'naam' not passed to vibhakti()" if !defined $arg_ref->{naam};
+confess "Argument 'linga' not passed to vibhakti()" if !defined $arg_ref->{linga};
+confess "Argument 'vibhakti' not passed to vibhakti()" if !defined $arg_ref->{vibhakti};
+confess "Argument 'vachana' not passed to vibhakti()" if !defined $arg_ref->{vachana};
 
 my ( $noun, $vibhakti, $linga, $vachana ) =
 		( $arg_ref -> {naam}, $arg_ref -> {vibhakti}, $arg_ref -> {linga},
@@ -68,23 +68,37 @@ my $aakaar = chop($noun);
 $vibhakti = sandhi($vibhakti);
 $linga = sandhi($linga);
 
-my %aakaar   = qw(0 0 a 1 A 2 i 3 I 4 u 5 U 6 R 7);
+my %aakaar   = qw(0 0 a 1 A 2 i 3 I 4 u 5 U 6 R 7 t 21);
 my %linga    = qw(puM 1 strI 2 napuMsaka 3 1 1 2 2 3 3);
 my %vachana  = qw(ekavachana 1 dvivachana 2 bahuvachana 3 1 1 2 2 3 3);
 my %vibhakti = qw#prathamA 1 dvitIyA 2 tRtIyA 3 chaturthI 4 paJchamI 5
 			     	ShaShThI 6 saptamI 7 sambodhana 8
 					1 1 2 2 3 3 4 4 5 5 6 6 7 7 8 8#;
 
-confess "Unsupported noun supplied to vibhakti(): $noun$aakaar ending in $aakaar"
+my %inv_aakaar	= qw(1 a 2 A 3 i 4 I 5 u 6 U 7 R 21 t);
+my %inv_linga	= qw(1 puM 2 strI 3 napuMsaka 
+						puM puM strI strI napuMsaka napuMsaka);
+my %inv_vachana	= qw(1 ekavachana 2 dvivachana 3 bahuvachana
+						ekavachana ekavachana dvivachana dvivachana
+						bahuvachana bahuvachana);
+my %inv_vibhakti= qw(1 prathamA 2 dvitIyA 3 tRtIyA 4 chaturthI 5 paJchamI 6
+						ShaShThI 7 saptamI 8 sambodhana
+						prathamA prathamA dvitIyA dvitIyA 
+						tRtIyA tRtIyA chaturthI chaturthI
+						paJchamI paJchamI ShaShThI ShaShThI
+						saptamI saptamI sambodhana sambodhana);
+
+confess "Unsupported noun supplied to vibhakti(): $noun$aakaar ending in \'$aakaar\'"
 	if !defined $aakaar{$aakaar};
-confess "Invalid linga $linga supplied to vibhakti()"
+confess "Invalid linga \'$linga\' supplied to vibhakti()"
 	if !defined $linga{$linga};
-confess "Invalid vibhakti $vibhakti supplied to vibhakti()"
+confess "Invalid vibhakti \'$vibhakti\' supplied to vibhakti()"
 	if !defined $vibhakti{$vibhakti};
-confess "Invalid vachana $vachana supplied to vibhakti()"
+confess "Invalid vachana \'$vachana\' supplied to vibhakti()"
 	if !defined $vachana{$vachana};
 
 # coef for swarAnt nouns range from 1111 to 7373
+# 21000 being tried for marut
 # with 7 sets of 72 coefs posible (not all taken)
 my $coef =
       $aakaar{$aakaar} * 1000 +
@@ -97,12 +111,19 @@ my $coef =
 ###### 10 through 80 8 vibhakti (8th being sambodhan)
 ####### 1 through 3 eka, dwi, bahuvachan
 ## possibilities for nouns are in the following series:
-# Masculine:1100,       3100,       5100,       7100 # examples of 2100?
+# Masculine:1100, 2100  3100, 4100, 5100, 6100, 7100
 # Feminine:	      2200, 3200, 4200, 5200, 6200, 7200
 # Neutar:	1300,       3300,       5300,       7300
-# 2100, 4100 exist, but I do not know the examples.
-# not sure of 6100, 6300
-# 1200, 2300, 4300 do not exist
+# According to Naphade et al.'s "nouns and pronouns in Sanskrit"
+# 2100 examples: gopA (cowboy), vishvapA (protector of universe),
+# 4100 examples: sudhI (intelligence)
+# 6100 examples: svayambhU (self-born)
+# khalapU is a varient of type 6100 differing in several
+# Other ajanta endings:
+# rai m/f (wealth)
+# go m/f (bull/cow), dyo f (sky)
+# nau f (boat)
+# 1200, 2300, 4300, 6300 do not exist
 
 # These are the noun suffixes
 my %ending = qw(
@@ -123,7 +144,7 @@ my %ending = qw(
       2151 aH                   2152 Abhyaam             2153 AbhyaH
       2161 aH                   2162 oH                   2163 Am
       2171 i                    2172 oH                   2173 Asu
-      2181 Am                  2182 au                   2183 AH
+      2181 AH                  2182 au                   2183 AH
 
       3111 iH                   3112 I                    3113 ayaH
       3121 im                   3122 I                    3123 In
@@ -134,6 +155,15 @@ my %ending = qw(
       3171 au                   3172 yoH                  3173 iSu
       3181 e                    3182 I                    3183 ayaH
 
+      4111 IH                   4112 iyau                 4113 iyaH
+      4121 iyam                 4122 iyau                 4123 iyaH
+      4131 iyA                  4132 Ibhyaam              4133 IbhiH
+      4141 iye                  4142 Ibhyaam              4143 IbhyaH
+      4151 iyaH                 4152 Ibhyaam              4153 IbhyaH
+      4161 iyaH                 4162 iyoH                 4163 iyaam
+      4171 iyi                  4172 iyoH                 4173 ISu
+      4181 iH                   4182 iyau                 4183 iyaH
+
       5111 uH                   5112 U                    5113 avaH
       5121 um                   5122 U                    5123 Un
       5131 unaa                 5132 ubhyaam              5133 ubhiH
@@ -142,6 +172,15 @@ my %ending = qw(
       5161 oH                   5162 voH                  5163 Unaam
       5171 au                   5172 voH                  5173 uSu
       5181 o                    5182 U                    5183 avaH
+
+      6111 UH                   6112 uvau                    6113 uvaH
+      6121 uvam                   6122 uvau                    6123 uvaH
+      6131 uvaa                 6132 Ubhyaam              6133 UbhiH
+      6141 uve                  6142 Ubhyaam              6143 UbhyaH
+      6151 uvaH                   6152 Ubhyaam              6153 UbhyaH
+      6161 uvaH                   6162 uvoH                  6163 Uvaam
+      6171 uvi                   6172 uvoH                  6173 USu
+      6181 uH                    6182 uvau                    6183 uvaH
 
       7111 A                    7112 Arau                 7113 AraH
       7121 Aram                 7122 Arau                 7123 RRn
@@ -241,11 +280,21 @@ my %ending = qw(
       7361 uH|RNaH              7362 roH|RNoH             7363 RRNaam
       7371 ari|RNi              7372 roH|RNoH             7373 RSu
       7381 aH|R                 7382 RNI                  7383 RRNi
+
+      21111 t                  21112 tau                 21113 taH
+      21121 tam                21122 tau                 21123 taH
+      21131 tA                 21132 dbhyaam             21133 dbhiH
+      21141 te                 21142 dbhyaam             21143 dbhyaH
+      21151 taH                21152 dbhyaam             21153 dbhyaH
+      21161 taH                21162 toH                 21163 tAm
+      21171 ti                 21172 toH                 21173 tsu
+      21181 t                  21182 tau                 21183 taH
+	
     );
 
 # Is 3263 above dirgha as stated?	## Yes, it is
 
-confess "$linga nouns ending in $aakaar not supported"
+confess "\'$inv_linga{$linga}\' nouns ending in \'$aakaar\' not supported"
 	if !defined $ending{$coef};
 
 ###	This part can cater to irregular nouns

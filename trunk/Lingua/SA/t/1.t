@@ -31,6 +31,7 @@ my %prathama_ekavachana_puM_vibhakti_of = (
 	'shatru'	=>	'shatruH',
 	'dhAtR'		=>	'dhAtA',
 	'nRpa'		=>	'nRpaH',
+	'marut'		=>	'marut',
 	);
 
 for my $word (keys %prathama_ekavachana_puM_vibhakti_of){

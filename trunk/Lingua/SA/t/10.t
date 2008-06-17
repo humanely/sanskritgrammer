@@ -55,22 +55,22 @@ for my $word (keys  %naam){
 		my $computed = vibhakti({naama=>$naam{$word}, linga=>$linga{$word},
 		vibhakti=>$vibhakti{$word}, vachana=>$vachana{$word}}); 
 		};
-	like($EVAL_ERROR,'/Argument naam/','naam not passed');
+	like($EVAL_ERROR,'/Argument \'naam/','naam not passed');
 	eval { 
 		my $computed = vibhakti({naam=>$naam{$word}, lingaa=>$linga{$word},
 		vibhakti=>$vibhakti{$word}, vachana=>$vachana{$word}}); 
 		};
-	like($EVAL_ERROR,'/Argument linga/','lingaa not passed');
+	like($EVAL_ERROR,'/Argument \'linga/','lingaa not passed');
 	eval { 
 		my $computed = vibhakti({naam=>$naam{$word}, linga=>$linga{$word},
 		vibhaktia=>$vibhakti{$word}, vachana=>$vachana{$word}}); 
 		};
-	like($EVAL_ERROR,'/Argument vibhakti/','vibhakti not passed');
+	like($EVAL_ERROR,'/Argument \'vibhakti/','vibhakti not passed');
 	eval { 
 		my $computed = vibhakti({naam=>$naam{$word}, linga=>$linga{$word},
 		vibhakti=>$vibhakti{$word}, vachanaa=>$vachana{$word}}); 
 		};
-	like($EVAL_ERROR,'/Argument vachana/','vachana not passed');
+	like($EVAL_ERROR,'/Argument \'vachana/','vachana not passed');
 
 
 #	unsupported "type" errors
