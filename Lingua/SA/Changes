@@ -27,3 +27,15 @@ Revision history for Perl extension Lingua::SA.
 	- prathamaa == prathamA etc. synonyms now available for vibhakti and linga
 	- sambodhan exceptions for ambA, akkA, allA added as special case
 	- when a linga, ending combination not supported, an exception is thrown
+
+0.09  Thu Jun 12 2008
+	- introducing %inv_linga etc. to make reported errors more meaningful when
+	  	numeric aliases for linga etc. used as inputs. These map the numbers
+		back into proper names for reporting
+	- Also quoting reported linga etc. in error messages so that they do not
+	  seem to be part of the sentence.
+	- added examples dir. and 5 examples
+	- added support for puM t-kaar nouns
+	- added support for puM I-kaar nouns
+	- added support for puM U-kaar nouns
+	- fixed 2181 bug Am -> AH (A-kaarant puM sambodha ekavachana) e.g. gopA
