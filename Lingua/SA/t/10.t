@@ -22,22 +22,27 @@ use Test::More 'no_plan';
 use Lingua::SA qw(vibhakti);
 my %naam = (
 	'1'		=> "raama", 
+	'2'		=> "vana", 
 	);
 
 my %linga = (
 	'1'		=> "puM", 
+	'2'		=> "napuMsaka", 
 	);
 
 my %vibhakti = (
 	'1'		=> "prathamaa", 
+	'2'		=> "prathamA", 
 	);
 
 my %vachana = (
 	'1'		=> "ekavachana", 
+	'2'		=> "ekavachana", 
 	);
 
 my %vibhakti_of = (
 	'1'		=> "rAm + aH", 
+	'2'		=> "van + am", 
 	);
 
 for my $word (keys  %naam){

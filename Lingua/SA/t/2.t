@@ -71,7 +71,7 @@ sub test_dvitIyA_ekavachana_strI_vibhakti{
 my %dvitIyA_ekavachana_strI_vibhakti_of = (
 	'bAlA'		=>	'bAlaam',
 	'mati'		=>	'matim',
-	'nadI'	=>	'nadIm',
+	'nadI'		=>	'nadIm',
 	'dhenu'		=>	'dhenum',
 	'vadhU'		=>	'vadhUm',
 	'mAtR'		=>	'mAtaram',
@@ -90,9 +90,9 @@ sub test_dvitIyA_ekavachana_napuMsaka_vibhakti{
 my %dvitIyA_ekavachana_napuMsaka_vibhakti_of = (
 	'vana'		=>	'vanam',
 	'vAri'		=>	'vAri',
-	'madhu'	=>	'madhu',
+	'madhu'		=>	'madhu',
 	'kartR'		=>	'kartR',
-	'Chatra'		=>	'Chatram',
+	'Chatra'	=>	'Chatram',
 	);
 
 for my $word (keys %dvitIyA_ekavachana_napuMsaka_vibhakti_of){
@@ -104,12 +104,6 @@ sandhi(vibhakti({ naam=>$word, vibhakti=>'dvitIyA', linga=>'napuMsaka', vachana=
 	}
 }
 #############################
-#sub sandhi{
-#my ($in)=@_;
-#$in=~s/\s+\+\s+//;
-#return $in;
-#}
-#########################
 sub test_dvitIyA_dvivachana_puM_vibhakti{
 # dvivachana, puMlinga
 my %dvitIyA_dvivachana_puM_vibhakti_of = (
@@ -134,7 +128,7 @@ sub test_dvitIyA_dvivachana_strI_vibhakti{
 my %dvitIyA_dvivachana_strI_vibhakti_of = (
 	'bAlA'		=>	'bAle',
 	'mati'		=>	'matI',
-	'nadI'	=>	'nadyau',
+	'nadI'		=>	'nadyau',
 	'dhenu'		=>	'dhenU',
 	'vadhU'		=>	'vadhvau',
 	'mAtR'		=>	'mAtarau',
@@ -154,7 +148,7 @@ sub test_dvitIyA_dvivachana_napuMsaka_vibhakti{
 my %dvitIyA_dvivachana_napuMsaka_vibhakti_of = (
 	'vana'		=>	'vane',
 	'vAri'		=>	'vAriNI',
-	'madhu'	=>	'madhunI',
+	'madhu'		=>	'madhunI',
 	'kartR'		=>	'kartRNI',
 	);
 
@@ -192,7 +186,7 @@ sub test_dvitIyA_bahuvachana_strI_vibhakti{
 my %dvitIyA_bahuvachana_strI_vibhakti_of = (
 	'bAlA'		=>	'bAlaaH',
 	'mati'		=>	'matIH',
-	'nadI'	=>	'nadIH',
+	'nadI'		=>	'nadIH',
 	'dhenu'		=>	'dhenUH',
 	'vadhU'		=>	'vadhUH',
 	'mAtR'		=>	'mAtRRH',
@@ -212,7 +206,7 @@ sub test_dvitIyA_bahuvachana_napuMsaka_vibhakti{
 my %dvitIyA_bahuvachana_napuMsaka_vibhakti_of = (
 	'vana'		=>	'vanaani',
 	'vAri'		=>	'vArINi',
-	'madhu'	=>	'madhUni',
+	'madhu'		=>	'madhUni',
 	'kartR'		=>	'kartRRNi',
 	);
 

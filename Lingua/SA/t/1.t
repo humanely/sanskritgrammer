@@ -57,10 +57,11 @@ my %prathama_ekavachana_strI_vibhakti_of = (
 	'bAlA'		=>	'bAlaa',
 	'bAlaa'		=>	'bAlaa',
 	'mati'		=>	'matiH',
-	'nadI'	=>	'nadI',
+	'nadI'		=>	'nadI',
 	'dhenu'		=>	'dhenuH',
 	'vadhU'		=>	'vadhUH',
 	'mAtR'		=>	'mAtA',
+	'sarit'		=>	'sarit',
 	);
 
 for my $word (keys %prathama_ekavachana_strI_vibhakti_of){
@@ -76,9 +77,10 @@ sub test_prathama_ekavachana_napuMsaka_vibhakti{
 my %prathama_ekavachana_napuMsaka_vibhakti_of = (
 	'vana'		=>	'vanam',
 	'vAri'		=>	'vAri',
-	'madhu'	=>	'madhu',
+	'madhu'		=>	'madhu',
 	'kartR'		=>	'kartR',
-	'Chatra'		=>	'Chatram',
+	'Chatra'	=>	'Chatram',
+	'jagat'		=>	'jagat',
 	);
 
 for my $word (keys %prathama_ekavachana_napuMsaka_vibhakti_of){
@@ -90,12 +92,6 @@ sandhi(vibhakti({ naam=>$word, vibhakti=>'prathamaa', linga=>'napuMsaka', vachan
 	}
 }
 #############################
-#sub sandhi{
-#my ($in)=@_;
-#$in=~s/\s+\+\s+//;
-#return $in;
-#}
-#########################
 sub test_prathama_dvivachana_puM_vibhakti{
 # dvivachana, puMlinga
 my %prathama_dvivachana_puM_vibhakti_of = (
@@ -120,7 +116,7 @@ sub test_prathama_dvivachana_strI_vibhakti{
 my %prathama_dvivachana_strI_vibhakti_of = (
 	'bAlA'		=>	'bAle',
 	'mati'		=>	'matI',
-	'nadI'	=>	'nadyau',
+	'nadI'		=>	'nadyau',
 	'dhenu'		=>	'dhenU',
 	'vadhU'		=>	'vadhvau',
 	'mAtR'		=>	'mAtarau',
@@ -140,7 +136,7 @@ sub test_prathama_dvivachana_napuMsaka_vibhakti{
 my %prathama_dvivachana_napuMsaka_vibhakti_of = (
 	'vana'		=>	'vane',
 	'vAri'		=>	'vAriNI',
-	'madhu'	=>	'madhunI',
+	'madhu'		=>	'madhunI',
 	'kartR'		=>	'kartRNI',
 	);
 
@@ -178,7 +174,7 @@ sub test_prathama_bahuvachana_strI_vibhakti{
 my %prathama_bahuvachana_strI_vibhakti_of = (
 	'bAlA'		=>	'bAlaaH',
 	'mati'		=>	'matayaH',
-	'nadI'	=>	'nadyaH',
+	'nadI'		=>	'nadyaH',
 	'dhenu'		=>	'dhenavaH',
 	'vadhU'		=>	'vadhvaH',
 	'mAtR'		=>	'mAtaraH',
@@ -198,7 +194,7 @@ sub test_prathama_bahuvachana_napuMsaka_vibhakti{
 my %prathama_bahuvachana_napuMsaka_vibhakti_of = (
 	'vana'		=>	'vanaani',
 	'vAri'		=>	'vArINi',
-	'madhu'	=>	'madhUni',
+	'madhu'		=>	'madhUni',
 	'kartR'		=>	'kartRRNi',
 	);
 

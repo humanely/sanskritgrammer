@@ -86,17 +86,6 @@ sandhi(vibhakti({ naam=>$word, vibhakti=>'chaturthI', linga=>'napuMsaka', vachan
 	}
 }
 #############################
-#sub sandhi{
-#my ($in)=@_;
-##$in=~s/\s+\+\s+//;
-#$in=~s/ \+ ([^\[])/$1/g;
-#$in=~s/aa/A/g;
-#$in=~s/ii/I/g;
-#$in=~s/uu/U/g;
-#$in=~s/Ru/R/g;
-#return $in;
-#}
-#########################
 sub test_chaturthI_dvivachana_puM_vibhakti{
 # dvivachana, puMlinga
 my %chaturthI_dvivachana_puM_vibhakti_of = (
@@ -121,7 +110,7 @@ sub test_chaturthI_dvivachana_strI_vibhakti{
 my %chaturthI_dvivachana_strI_vibhakti_of = (
 	'bAlA'		=>	'bAlaabhyaam',
 	'mati'		=>	'matibhyaam',
-	'nadI'	=>	'nadIbhyaam',
+	'nadI'		=>	'nadIbhyaam',
 	'dhenu'		=>	'dhenubhyaam',
 	'vadhU'		=>	'vadhUbhyaam',
 	'mAtR'		=>	'mAtRubhyaam',
@@ -141,7 +130,7 @@ sub test_chaturthI_dvivachana_napuMsaka_vibhakti{
 my %chaturthI_dvivachana_napuMsaka_vibhakti_of = (
 	'vana'		=>	'vanaabhyaam',
 	'vAri'		=>	'vAribhyaam',
-	'madhu'	=>	'madhubhyaam',
+	'madhu'		=>	'madhubhyaam',
 	'kartR'		=>	'kartRubhyaam',
 	);
 
@@ -182,7 +171,7 @@ sub test_chaturthI_bahuvachana_strI_vibhakti{
 my %chaturthI_bahuvachana_strI_vibhakti_of = (
 	'bAlA'		=>	'bAlaabhyaaH',
 	'mati'		=>	'matibhyaH',
-	'nadI'	=>	'nadIbhyaH',
+	'nadI'		=>	'nadIbhyaH',
 	'dhenu'		=>	'dhenubhyaH',
 	'vadhU'		=>	'vadhUbhyaH',
 	'mAtR'		=>	'mAtRubhyaH',
@@ -202,7 +191,7 @@ sub test_chaturthI_bahuvachana_napuMsaka_vibhakti{
 my %chaturthI_bahuvachana_napuMsaka_vibhakti_of = (
 	'vana'		=>	'vanebhyaH',
 	'vAri'		=>	'vAribhyaH',
-	'madhu'	=>	'madhubhyaH',
+	'madhu'		=>	'madhubhyaH',
 	'kartR'		=>	'kartRubhyaH',
 	);
 
