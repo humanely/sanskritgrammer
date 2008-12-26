@@ -47,7 +47,7 @@ sub test_sambodhan_ekavachana_strI_vibhakti{
 my %sambodhan_ekavachana_strI_vibhakti_of = (
 	'bAlA'		=>	'he bAle',
 	'mati'		=>	'he mate',
-	'nadI'	=>	'he nadi',
+	'nadI'		=>	'he nadi',
 	'dhenu'		=>	'he dheno',
 	'vadhU'		=>	'he vadhu',
 	'mAtR'		=>	'he [ maataH | maatar ]',

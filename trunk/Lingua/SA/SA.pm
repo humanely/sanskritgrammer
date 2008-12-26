@@ -28,7 +28,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT = qw(
 );
 
-our $VERSION = '0.09';
+our $VERSION = '0.11';
 
 # Preloaded methods go here.
 ###########################################################
@@ -39,6 +39,10 @@ $in=~s/aa/A/g;				# replace aa with A
 $in=~s/ii/I/g;				# replace ii with I
 $in=~s/uu/U/g;				# replace uu with U
 $in=~s/Ru/R/g;				# replace Ru with R
+$in=~s/Sh/S/g;				# replace Sh with S
+$in=~s/sh/z/g;				# replace sh with z
+$in=~s/Ch/C/g;				# replace Ch with C
+$in=~s/ch/c/g;				# replace ch with c
 return $in;
 }
 ###########################################################
@@ -71,8 +75,11 @@ $linga = sandhi($linga);
 my %aakaar   = qw(0 0 a 1 A 2 i 3 I 4 u 5 U 6 R 7 t 21);
 my %linga    = qw(puM 1 strI 2 napuMsaka 3 1 1 2 2 3 3);
 my %vachana  = qw(ekavachana 1 dvivachana 2 bahuvachana 3 1 1 2 2 3 3);
-my %vibhakti = qw#prathamA 1 dvitIyA 2 tRtIyA 3 chaturthI 4 paJchamI 5
-			     	ShaShThI 6 saptamI 7 sambodhana 8
+#my %vibhakti = qw#prathamA 1 dvitIyA 2 tRtIyA 3 chaturthI 4 paJchamI 5
+#			     	ShaShThI 6 saptamI 7 sambodhana 8
+#					1 1 2 2 3 3 4 4 5 5 6 6 7 7 8 8#;
+my %vibhakti = qw#prathamA 1 dvitIyA 2 tRtIyA 3 caturthI 4 paJcamI 5
+			     	SaSThI 6 saptamI 7 sambodhana 8
 					1 1 2 2 3 3 4 4 5 5 6 6 7 7 8 8#;
 
 my %inv_aakaar	= qw(1 a 2 A 3 i 4 I 5 u 6 U 7 R 21 t);
@@ -98,7 +105,8 @@ confess "Invalid vachana \'$vachana\' supplied to vibhakti()"
 	if !defined $vachana{$vachana};
 
 # coef for swarAnt nouns range from 1111 to 7373
-# 21000 being tried for marut
+# 21000 being tried for marut (21100)
+# and for sarit (21200) and jagat (21300)
 # with 7 sets of 72 coefs posible (not all taken)
 my $coef =
       $aakaar{$aakaar} * 1000 +
@@ -289,6 +297,24 @@ my %ending = qw(
       21161 taH                21162 toH                 21163 tAm
       21171 ti                 21172 toH                 21173 tsu
       21181 t                  21182 tau                 21183 taH
+
+      21211 t                  21212 tau                 21213 taH
+      21221 tam                21222 tau                 21223 taH
+      21231 tA                 21232 dbhyaam             21233 dbhiH
+      21241 te                 21242 dbhyaam             21243 dbhyaH
+      21251 taH                21252 dbhyaam             21253 dbhyaH
+      21261 taH                21262 toH                 21263 tAm
+      21271 ti                 21272 toH                 21273 tsu
+      21281 t                  21282 tau                 21283 taH
+
+      21311 t                  21312 tI                  21313 nti
+      21321 t                  21322 tI                  21323 nti
+      21331 tA                 21332 dbhyaam             21333 dbhiH
+      21341 te                 21342 dbhyaam             21343 dbhyaH
+      21351 taH                21352 dbhyaam             21353 dbhyaH
+      21361 taH                21362 toH                 21363 tAm
+      21371 ti                 21372 toH                 21373 tsu
+      21381 t                  21382 tI                  21383 nti
 	
     );
 
@@ -311,16 +337,20 @@ my $endcoef = $ending{$coef};
 # here (h y v k kh g gh ~N p ph b bh m and a pratyay (aa~N - not implemented)
 # Additionally, n can not be halant
 
-my $Natva = "h|y|v|k(h)?|g(h)?|G|p(h)?|b(h)?|m";
+my $Natva = qr{ h | y | v | (?: kgpb)(?: h) | G | m };		# This works
+#my $Natva = "h|y|v|k(h)?|g(h)?|G|p(h)?|b(h)?|m";
 
-#	vowel is as defined in split_word
-my $vowel = "(A|H|I|M|R(R|u)?|U|a(a|i|u)?|i(i)?|e|lR|o(M)?|u(u)?|\\:|\\|(\\|)?)";
+
+#       vowel is as defined in split_word
+my $vowel = qr{ (?: eUAHIM) | RR | R | ai | au | i | lR | oM | o | u | : };
+#my $vowel = "(A|H|I|M|R(R|u)?|U|a(a|i|u)?|i(i)?|e|lR|o(M)?|u(u)?|\\:|\\|(\\|)?)";
+
 
 my $inflected;
 
 ###	This part can be expanded to include exceptions/options
 
-if ($noun =~ m/[rRS][$Natva|$vowel]*$/ ) {
+if ($noun =~ m{[rRS][$Natva|$vowel]* \z}x ) {
         $endcoef =~ s/n([a-zA-Z])/N$1/;	
         }
 if ( $endcoef =~ m/\|/ ) {
@@ -407,7 +437,8 @@ sub match_code {
 ########################################
 sub split_word {
     my ($word) = @_;
-	# vowels is copied as is in vibhakti
+	# vowels is copied (almost) as is in vibhakti
+#	my $vowels = qr{ (?: eUAHIM) | RR | R | ai | au | i | lR | oM | o | u | : };
     my $vowels = "(A|H|I|M|R(R|u)?|U|a(a|i|u)?|i(i)?|e|lR|o(M)?|u(u)?|\\:|\\|(\\|)?)";
     my $consonants =
 "(C(h|B)?|D(h)?|G|J|N|S(h)?|T(h)?|b(h)?|c(h)?|d(h)?|g(h)?|h|j(h)?|k(h)?|l|m|n|p(h)?|r|s(h)?|t(h)?|v|y|z|L)";
@@ -416,7 +447,7 @@ sub split_word {
     my $matched;
     my $index;
     while ($word) {    # begin out
-        unless ( $word =~ m/$vowels/ ) { $index = length($word); }
+        unless ( $word =~ m/$vowels/x ) { $index = length($word); }
         else                           { $index = length($`); }
         if ( $index == 0 ) {    # begin 3A
             $matched = $1;
@@ -437,7 +468,7 @@ sub split_word {
                 push( @syllables, $matched );
                 $vowel_start_p = 0;
                 $word = substr( $word, length($matched) );
-                unless ( $word =~ m/$vowels/ ) { $index = length($word); }
+                unless ( $word =~ m/$vowels/x ) { $index = length($word); }
                 else                           { $index = length($`); }
                 if ( $index or length($word) == 0 ) {    # begin 1A
                     push( @syllables, "*" );

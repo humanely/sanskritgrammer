@@ -1,4 +1,10 @@
 Changes
+examples/html_table_no_args.pl
+examples/pada_with_args.pl
+examples/pratyay_no_args.pl
+examples/pratyay_with_args.pl
+examples/table_no_args.pl
+examples/table_with_args.pl
 INSTALL
 Makefile.PL
 MANIFEST
@@ -14,9 +20,3 @@ t/7.t
 t/8.t
 t/9.t
 t/10.t
-examples/pada_with_args.pl
-examples/pratyay_no_args.pl
-examples/pratyay_with_args.pl
-examples/table_no_args.pl
-examples/table_with_args.pl
-META.yml                                 Module meta-data (added by MakeMaker)

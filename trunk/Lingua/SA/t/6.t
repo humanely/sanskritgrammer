@@ -47,7 +47,7 @@ sub test_ShaShThI_ekavachana_strI_vibhakti{
 my %ShaShThI_ekavachana_strI_vibhakti_of = (
 	'bAlA'		=>	'bAlaayaaH',
 	'mati'		=>	'matyaaH | mateH',
-	'nadI'	=>	'nadyaaH',
+	'nadI'		=>	'nadyaaH',
 	'dhenu'		=>	'dhenoH | dhenvaaH',
 	'vadhU'		=>	'vadhvaaH',
 	'mAtR'		=>	'mAtuH',
@@ -99,9 +99,9 @@ my %ShaShThI_ekavachana_napuMsaka_vibhakti_of = (
 	'vana'		=>	'vanasya',
     'vAri'      =>  'vAriNaH',
     'shuci'     =>  'shucinaH',
-	'madhu'	=>	'madhunaH',
+	'madhu'		=>	'madhunaH',
 	'kartR'		=>	'kartuH | kartRNaH',
-	'Chatra'		=>	'Chatrasya',
+	'Chatra'	=>	'Chatrasya',
 	);
 
 for my $word (keys %ShaShThI_ekavachana_napuMsaka_vibhakti_of){
@@ -144,7 +144,7 @@ sub test_ShaShThI_dvivachana_strI_vibhakti{
 my %ShaShThI_dvivachana_strI_vibhakti_of = (
 	'bAlA'		=>	'bAlayoH',
 	'mati'		=>	'matyoH',
-	'nadI'	=>	'nadyoH',
+	'nadI'		=>	'nadyoH',
 	'dhenu'		=>	'dhenvoH',
 	'vadhU'		=>	'vadhvoH',
 	'mAtR'		=>	'mAtroH',
@@ -164,7 +164,7 @@ sub test_ShaShThI_dvivachana_napuMsaka_vibhakti{
 my %ShaShThI_dvivachana_napuMsaka_vibhakti_of = (
 	'vana'		=>	'vanayoH',
 	'vAri'		=>	'vAriNoH',
-	'madhu'	=>	'madhunoH',
+	'madhu'		=>	'madhunoH',
 	'kartR'		=>	'kartroH | kartRNoH',
 	);
 
@@ -205,7 +205,7 @@ sub test_ShaShThI_bahuvachana_strI_vibhakti{
 my %ShaShThI_bahuvachana_strI_vibhakti_of = (
 	'bAlA'		=>	'bAlaanaam',
 	'mati'		=>	'matInaam',
-	'nadI'	=>	'nadInaam',
+	'nadI'		=>	'nadInaam',
 	'dhenu'		=>	'dhenUnaam',
 	'vadhU'		=>	'vadhUnaam',
 	'mAtR'		=>	'mAtRRNaam',
@@ -225,7 +225,7 @@ sub test_ShaShThI_bahuvachana_napuMsaka_vibhakti{
 my %ShaShThI_bahuvachana_napuMsaka_vibhakti_of = (
 	'vana'		=>	'vanaanaam',
 	'vAri'		=>	'vArINaam',
-	'madhu'	=>	'madhUnaam',
+	'madhu'		=>	'madhUnaam',
 	'kartR'		=>	'kartRRNaam',
 	);
 

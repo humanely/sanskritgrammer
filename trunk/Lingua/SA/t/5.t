@@ -47,7 +47,7 @@ sub test_paJchamI_ekavachana_strI_vibhakti{
 my %paJchamI_ekavachana_strI_vibhakti_of = (
 	'bAlA'		=>	'bAlaayaaH',
 	'mati'		=>	'matyaaH | mateH',
-	'nadI'	=>	'nadyaaH',
+	'nadI'		=>	'nadyaaH',
 	'dhenu'		=>	'dhenoH | dhenvaaH',
 	'vadhU'		=>	'vadhvaaH',
 	'mAtR'		=>	'mAtuH',
@@ -72,9 +72,9 @@ my %paJchamI_ekavachana_napuMsaka_vibhakti_of = (
 	'vana'		=>	'vanaat',
 	'vAri'		=>	'vAriNaH',
 	'shuci'		=>	'shucinaH',
-	'madhu'	=>	'madhunaH',
+	'madhu'		=>	'madhunaH',
 	'kartR'		=>	'kartuH | kartRNaH',
-	'Chatra'		=>	'Chatraat',
+	'Chatra'	=>	'Chatraat',
 	);
 
 for my $word (keys %paJchamI_ekavachana_napuMsaka_vibhakti_of){
@@ -86,17 +86,6 @@ sandhi(vibhakti({ naam=>$word, vibhakti=>'paJchamI', linga=>'napuMsaka', vachana
 	}
 }
 #############################
-#sub sandhi{
-#my ($in)=@_;
-##$in=~s/\s+\+\s+//;
-#$in=~s/ \+ ([^\[])/$1/g;
-#$in=~s/aa/A/g;
-#$in=~s/ii/I/g;
-#$in=~s/uu/U/g;
-#$in=~s/Ru/R/g;
-#return $in;
-#}
-#########################
 sub test_paJchamI_dvivachana_puM_vibhakti{
 # dvivachana, puMlinga
 my %paJchamI_dvivachana_puM_vibhakti_of = (
@@ -121,7 +110,7 @@ sub test_paJchamI_dvivachana_strI_vibhakti{
 my %paJchamI_dvivachana_strI_vibhakti_of = (
 	'bAlA'		=>	'bAlaabhyaam',
 	'mati'		=>	'matibhyaam',
-	'nadI'	=>	'nadIbhyaam',
+	'nadI'		=>	'nadIbhyaam',
 	'dhenu'		=>	'dhenubhyaam',
 	'vadhU'		=>	'vadhUbhyaam',
 	'mAtR'		=>	'mAtRubhyaam',
@@ -141,7 +130,7 @@ sub test_paJchamI_dvivachana_napuMsaka_vibhakti{
 my %paJchamI_dvivachana_napuMsaka_vibhakti_of = (
 	'vana'		=>	'vanaabhyaam',
 	'vAri'		=>	'vAribhyaam',
-	'madhu'	=>	'madhubhyaam',
+	'madhu'		=>	'madhubhyaam',
 	'kartR'		=>	'kartRubhyaam',
 	);
 
@@ -182,7 +171,7 @@ sub test_paJchamI_bahuvachana_strI_vibhakti{
 my %paJchamI_bahuvachana_strI_vibhakti_of = (
 	'bAlA'		=>	'bAlaabhyaaH',
 	'mati'		=>	'matibhyaH',
-	'nadI'	=>	'nadIbhyaH',
+	'nadI'		=>	'nadIbhyaH',
 	'dhenu'		=>	'dhenubhyaH',
 	'vadhU'		=>	'vadhUbhyaH',
 	'mAtR'		=>	'mAtRubhyaH',
@@ -202,7 +191,7 @@ sub test_paJchamI_bahuvachana_napuMsaka_vibhakti{
 my %paJchamI_bahuvachana_napuMsaka_vibhakti_of = (
 	'vana'		=>	'vanebhyaH',
 	'vAri'		=>	'vAribhyaH',
-	'madhu'	=>	'madhubhyaH',
+	'madhu'		=>	'madhubhyaH',
 	'kartR'		=>	'kartRubhyaH',
 	);
 

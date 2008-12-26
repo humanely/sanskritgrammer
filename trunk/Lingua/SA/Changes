@@ -39,3 +39,13 @@ Revision history for Perl extension Lingua::SA.
 	- added support for puM I-kaar nouns
 	- added support for puM U-kaar nouns
 	- fixed 2181 bug Am -> AH (A-kaarant puM sambodha ekavachana) e.g. gopA
+
+0.10  Tue Jun 17 2008
+	- replacing Sh with S, Ch with C, ch with c in sandhi
+	- un-memorizing REGEX
+	- adding tests
+	- fixed 21131 bug a -> A (t-kaaraant puM tRtiyaa ekavachana) e.g. marut
+	- fixed 21163 bug a -> A (t-kaaraant puM ShaShThi bahuvachana) e.g. marut
+
+0.11  Thu Dec 25 2008
+	- added support for strI and naPumsaka t-kaar nouns
