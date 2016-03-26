@@ -1,0 +1,1 @@
+This is a (set of) perl module(s) that provide various transformations of Sanskrit nouns (and verbs), as well as transliteration from Roman to devanaagarii and Unicode.
